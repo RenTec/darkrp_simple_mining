@@ -1,0 +1,12 @@
+"AddonInfo"
+{
+	"name"			"Simple Mining"
+	"version"		""
+	"up_date"		""
+	"author_name"		""
+	"author_email"		""
+	"author_url"		""
+	"info"			""
+	"override"		"0"
+}
+
