@@ -3,10 +3,9 @@
 	"name"			"Simple Mining"
 	"version"		""
 	"up_date"		""
-	"author_name"		""
+	"author_name"		"RenTec"
 	"author_email"		""
 	"author_url"		""
 	"info"			""
 	"override"		"0"
 }
-
