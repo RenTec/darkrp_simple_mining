@@ -9,9 +9,9 @@ function ENT:SpawnFunction( ply, tr, ClassName )
 	if ( !tr.Hit ) then return end
 
 	local SpawnPos = tr.HitPos + tr.HitNormal - Vector(0, 0, 5)
-	local SpawnAng = ply:EyeAngles()
-	SpawnAng.p = 0
-	SpawnAng.y = SpawnAng.y + 180
+	local SpawnAng = Angle(0,ply:EyeAngles().y,0)
+	SpawnAng:RotateAroundAxis(tr.HitNormal, 90)
+	SpawnAng:RotateAroundAxis(Vector(0, 0, 1), 90)
 
 	local self = ents.Create( ClassName )
 	self:SetModel(table.Random(SM.rockModels))
