@@ -12,6 +12,10 @@ function ENT:SpawnFunction( ply, tr, ClassName )
 	local SpawnAng = Angle(0,ply:EyeAngles().y,0)
 	SpawnAng:RotateAroundAxis(tr.HitNormal, 90)
 	SpawnAng:RotateAroundAxis(Vector(0, 0, 1), 90)
+	
+	if (tr.HitNormal.z <= 0 ) then
+		SpawnAng:RotateAroundAxis(Vector(0, 1, 0), 180)
+	end
 
 	local self = ents.Create( ClassName )
 	self:SetModel(table.Random(SM.rockModels))
@@ -19,14 +23,14 @@ function ENT:SpawnFunction( ply, tr, ClassName )
 	self:SetAngles( SpawnAng )
 	self:Spawn()
 	self:Activate()
-	self:SetColor( Color( 15, 82, 186 ) )
-	self:SetMaterial("models/props_combine/prtl_sky_sheet")
-	self:SetRenderMode( RENDERMODE_GLOW )
+	self:SetColor( Color( 255, 190, 0 ) )
+	self:SetMaterial("models/antlion/antlion_innards")
+	self:SetRenderMode( RENDERMODE_GLOW ) -- I dont think this does anything
 	self:SetCollisionGroup( 20 )
 	self.shouldRespawn = true
 	self:AddEFlags( EFL_FORCE_CHECK_TRANSMIT )
 	self:SetNWBool( "lightOn", true )
-	
+
 	return self
 end
 

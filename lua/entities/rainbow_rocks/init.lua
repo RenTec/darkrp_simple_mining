@@ -15,6 +15,10 @@ function ENT:SpawnFunction( ply, tr, ClassName )
 	local SpawnAng = Angle(0,ply:EyeAngles().y,0)
 	SpawnAng:RotateAroundAxis(tr.HitNormal, 90)
 	SpawnAng:RotateAroundAxis(Vector(0, 0, 1), 90)
+	
+	if (tr.HitNormal.z <= 0 ) then
+		SpawnAng:RotateAroundAxis(Vector(0, 1, 0), 180)
+	end
 
 	local self = ents.Create( ClassName )
 	self:SetModel(table.Random(SM.rockModels))
