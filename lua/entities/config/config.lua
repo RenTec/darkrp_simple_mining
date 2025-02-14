@@ -3,6 +3,7 @@ SM.oreData = {}
 
 SM.fileName = "simple_mining_data.json"
 SM.respawnTime = 60
+SM.Speed = 20
 
 SM.rockModels = 
 {
@@ -12,6 +13,12 @@ SM.rockModels =
 	[750] = "models/props_abandoned/crystals_fixed/crystal_stump/crystal_small_stump_a.mdl",
 	[250] = "models/props_abandoned/crystals_fixed/crystal_damaged/crystal_cluster_wall_damaged_small.mdl"
 }
+
+
+function SM.Rainbow()
+    color = HSVToColor(CurTime() * SM.Speed % 360, 1, 1)
+    return Color(color.r, color.g, color.b, 255)
+end
 
 concommand.Add( "sm_save", function( ply, cmd, args )
     if not file.IsDir("sm_dat", "DATA") then

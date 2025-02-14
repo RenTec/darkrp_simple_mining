@@ -5,9 +5,6 @@ AddCSLuaFile("shared.lua")
 include("shared.lua")
 include("entities/config/config.lua")
 
-local speed = 5
-local color = Color(255,255,255)
-
 function ENT:SpawnFunction( ply, tr, ClassName )
 	if ( !tr.Hit ) then return end
 
@@ -26,7 +23,7 @@ function ENT:SpawnFunction( ply, tr, ClassName )
 	self:SetAngles( SpawnAng )
 	self:Spawn()
 	self:Activate()
-	self:SetColor( Color( color.r, color.g, color.b ) ) 
+	self:SetColor( SM.Rainbow() ) 
 	self:SetMaterial("phoenix_storms/trains/track_beamtop")
 	self:SetRenderMode( RENDERMODE_GLOW )
 	self:SetCollisionGroup( 20 )
@@ -76,11 +73,8 @@ function ENT:OnTakeDamage( dmginfo )
 end
 
 function ENT:Think()
-	local time = CurTime() * speed
+	self:SetColor(SM.Rainbow())
 
-	color.r = math.sin(time) * 127 + 128
-	color.g = math.sin(time + 2) * 127 + 128
-	color.b = math.sin(time + 4) * 127 + 128
-
-	self:SetColor( Color( color.r, color.g, color.b ) ) 
+	self:NextThink( CurTime() ) -- Set the next think to run as soon as possible, i.e. the next frame.
+	return true -- Apply NextThink call
 end
