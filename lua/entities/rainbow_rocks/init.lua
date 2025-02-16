@@ -24,12 +24,10 @@ function ENT:SpawnFunction( ply, tr, ClassName )
 	self:Spawn()
 	self:Activate()
 	self:SetColor( SM.Rainbow() ) 
-	self:SetMaterial("phoenix_storms/trains/track_beamtop")
 	self:SetRenderMode( RENDERMODE_GLOW )
 	self:SetCollisionGroup( 20 )
 	self.shouldRespawn = true
 	self:AddEFlags( EFL_FORCE_CHECK_TRANSMIT )
-	self:SetNWBool( "lightOn", true )
 	
 	return self
 end
@@ -46,6 +44,14 @@ function ENT:Initialize()
 	self:SetHealth( 100 )
 end
 
+function ENT:UpdateTransmitState()
+	if self.shouldRespawn then
+		return TRANSMIT_PVS
+	else
+		return TRANSMIT_NEVER
+	end
+end
+
 function ENT:OnTakeDamage( dmginfo )
 	if ( not self.m_bApplyingDamage ) then
 		self.m_bApplyingDamage = true
@@ -56,14 +62,12 @@ function ENT:OnTakeDamage( dmginfo )
 			self:EmitSound( "physics/concrete/concrete_break2.wav" )
 			dmginfo:GetAttacker():addMoney(table.KeyFromValue(SM.rockModels, self:GetModel()))
 			self:AddEFlags( EFL_FORCE_CHECK_TRANSMIT )
-			self:SetNWBool( "lightOn", false )
 			timer.Simple( SM.respawnTime, function()
 				self:SetHealth( 100 )
 				self.shouldRespawn = true
 				self.m_bApplyingDamage = false
 				self:RemoveAllDecals()
 				self:AddEFlags( EFL_FORCE_CHECK_TRANSMIT )
-				self:SetNWBool( "lightOn", true )
 			end )
 		else
 			if ( IsValid(dmginfo:GetAttacker()) ) then self:SetHealth( self:Health() - dmginfo:GetDamage() ) end
