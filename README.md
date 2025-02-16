@@ -24,4 +24,4 @@ There is a SWEP included that is not finished yet / has no functionality
 
 # Known Bugs
 
-	Not all rocks spawn with their dlights when loading from file
+	Dynamic Lights bug out after 32 instances
