@@ -53,6 +53,7 @@ end
 
 function SWEP:PrimaryAttack()
 
+	self.Owner:AnimRestartGesture(0, 64, true)
 	self.Owner:SetAnimation( PLAYER_ATTACK1 )	
 	self:EmitSound( SwingSound )
 	self.Weapon:SetNextPrimaryFire( CurTime() + self.HitRate )
