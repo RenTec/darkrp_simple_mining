@@ -24,12 +24,10 @@ function ENT:SpawnFunction( ply, tr, ClassName )
 	self:Spawn()
 	self:Activate()
 	self:SetColor( Color( 255, 190, 0 ) )
-	self:SetMaterial("models/antlion/antlion_innards")
 	self:SetRenderMode( RENDERMODE_GLOW ) -- I dont think this does anything
 	self:SetCollisionGroup( 20 )
 	self.shouldRespawn = true
 	self:AddEFlags( EFL_FORCE_CHECK_TRANSMIT )
-	self:SetNWBool( "lightOn", true )
 
 	return self
 end
@@ -64,14 +62,12 @@ function ENT:OnTakeDamage( dmginfo )
 			self:EmitSound( "physics/concrete/concrete_break2.wav" )
 			dmginfo:GetAttacker():addMoney(table.KeyFromValue(SM.rockModels, self:GetModel()))
 			self:AddEFlags( EFL_FORCE_CHECK_TRANSMIT )
-			self:SetNWBool( "lightOn", false )
 			timer.Simple( SM.respawnTime, function()
 				self:SetHealth( 100 )
 				self.shouldRespawn = true
 				self.m_bApplyingDamage = false
 				self:RemoveAllDecals()
 				self:AddEFlags( EFL_FORCE_CHECK_TRANSMIT )
-				self:SetNWBool( "lightOn", true )
 			end )
 		else
 			if ( IsValid(dmginfo:GetAttacker()) ) then self:SetHealth( self:Health() - dmginfo:GetDamage() ) end
