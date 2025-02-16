@@ -6,9 +6,9 @@ function ENT:Think()
 		local lighting = DynamicLight( self:EntIndex() )
 		if ( lighting ) then
 			lighting.Pos = pos + self:GetUp() * 30
-			lighting.r = 185
-			lighting.g = 242
-			lighting.b = 255
+			lighting.r = self:GetColor().r
+			lighting.g = self:GetColor().g
+			lighting.b = self:GetColor().b
 			lighting.Brightness = 1
 			lighting.Size = 215
 			lighting.Decay = 2500
