@@ -57,7 +57,7 @@ function ENT:OnTakeDamage( dmginfo )
 		self.m_bApplyingDamage = true
 		self:TakeDamageInfo( dmginfo )
 
-		if self:Health() <= 0 && self.shouldRespawn then
+		if dmginfo:GetDamage() >= self:Health() && self.shouldRespawn then
 			self.shouldRespawn = false
 			self:EmitSound( "physics/concrete/concrete_break2.wav" )
 			dmginfo:GetAttacker():addMoney(table.KeyFromValue(SM.rockModels, self:GetModel()))
