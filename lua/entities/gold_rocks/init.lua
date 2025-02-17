@@ -45,11 +45,11 @@ function ENT:Initialize()
 end
 
 function ENT:UpdateTransmitState()
-	if self.shouldRespawn then
+	if ( self.shouldRespawn ) then
 		return TRANSMIT_PVS
-	else
-		return TRANSMIT_NEVER
 	end
+	
+	return TRANSMIT_NEVER
 end
 
 function ENT:OnTakeDamage( dmginfo )
