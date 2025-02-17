@@ -15,8 +15,6 @@ Rocks will autospawn on map load, change and cleanup
 
 # Addon is Work In Progress
 
-There is a SWEP included that is not finished yet / has no functionality
-
 # TODO
 
 	Finish basic pickaxe swep
