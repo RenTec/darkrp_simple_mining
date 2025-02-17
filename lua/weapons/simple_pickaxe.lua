@@ -33,9 +33,9 @@ SWEP.HitRate			= 1.35
 SWEP.HitDamage			= 10
 
 local SwingSound = Sound( "WeaponFrag.Roll" )
-local HitSoundWorld = Sound( "Canister.ImpactHard" )
+local HitSoundCrystal = Sound( "Canister.ImpactHard" )
+local HitSoundWorld = Sound( "Default.BulletImpact" )
 local HitSoundBody = Sound( "Flesh.ImpactHard" )
-local PushSoundBody = Sound( "Flesh.ImpactSoft" )
 
 function SWEP:Initialize()
 
@@ -59,21 +59,35 @@ function SWEP:PrimaryAttack()
 	local vm = self.Owner:GetViewModel()
 
 	if IsValid(tr.Entity) then
-		self:EmitSound( HitSoundWorld )
+		if ( string.EndsWith(tr.Entity:GetClass(), "_rocks" ) ) then
+			self:EmitSound( HitSoundCrystal )
+			util.Decal( "Impact.Glass", self.Owner:EyePos(), tr.HitPos, self.Owner )
+		elseif ( string.match( tr.Entity:GetClass(), "player" ) ) then
+			self:EmitSound( HitSoundBody )
+		else
+			self:EmitSound( HitSoundWorld )
+		end
 		vm:SendViewModelMatchingSequence( vm:LookupSequence( "hitcenter1" ) )
 		if SERVER then
 			local dmg = DamageInfo() -- Create a server-side damage information class
-			dmg:SetDamage( self.HitDamage )
+			if ( string.match( tr.Entity:GetClass(), "player" ) ) then
+				dmg:SetDamage( 0 )
+			else
+				dmg:SetDamage( self.HitDamage )
+			end
 			dmg:SetAttacker( self.Owner )
 			dmg:SetInflictor( self )
 			dmg:SetDamageType( DMG_GENERIC )
 			tr.Entity:TakeDamageInfo( dmg )
 		end
-		util.Decal( "Impact.Glass", self.Owner:EyePos(), tr.HitPos, self.Owner )
 	else
 		self:EmitSound( SwingSound )
 		vm:SendViewModelMatchingSequence( vm:LookupSequence( "misscenter1" ) )
 	end
 	
 	self:GetOwner():ViewPunch( Angle( -1, 0, 0 ) )
+end
+
+function SWEP:SecondaryAttack()
+	-- do nothing
 end
