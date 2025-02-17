@@ -10,9 +10,9 @@ SWEP.Category = "Simple Mining"
 
 SWEP.Spawnable = true
 SWEP.AdminSpawnable = true
-SWEP.ViewModel = "models/weapons/v_crowbar.mdl"
-SWEP.WorldModel = "models/weapons/w_crowbar.mdl"
-SWEP.ViewModelFOV = 75
+SWEP.ViewModel = "models/weapons/hl2meleepack/v_pickaxe.mdl"
+SWEP.WorldModel = "models/weapons/hl2meleepack/w_pickaxe.mdl"
+SWEP.ViewModelFOV = 70
 SWEP.UseHands = true
 
 SWEP.Primary.Clipsize = -1
@@ -38,8 +38,7 @@ SWEP.HitDistance		= 40
 SWEP.HitInclination		= 0.4
 SWEP.HitPushback		= 1000
 SWEP.HitRate			= 1.35
-SWEP.MinDamage			= 34
-SWEP.MaxDamage			= 50
+SWEP.HitDamage			= 25
 
 local SwingSound = Sound( "WeaponFrag.Roll" )
 local HitSoundWorld = Sound( "Canister.ImpactHard" )
@@ -53,10 +52,35 @@ end
 
 function SWEP:PrimaryAttack()
 
-	self.Owner:AnimRestartGesture(0, 64, true)
-	self.Owner:SetAnimation( PLAYER_ATTACK1 )	
-	self:EmitSound( SwingSound )
+
+	self.Owner:SetAnimation( PLAYER_ATTACK1 )
+	
 	self.Weapon:SetNextPrimaryFire( CurTime() + self.HitRate )
 	self.Weapon:SetNextSecondaryFire( CurTime() + self.HitRate )
 
+	local tr = util.TraceLine( {
+		start = self.Owner:EyePos(),
+		endpos = self.Owner:EyePos() + self.Owner:EyeAngles():Forward() * 80,
+		filter = self.Owner
+	} )
+
+	local vm = self.Owner:GetViewModel()
+
+	if IsValid(tr.Entity) then
+		self:EmitSound( HitSoundWorld )
+		vm:SendViewModelMatchingSequence( vm:LookupSequence( "hitcenter1" ) )
+		if SERVER then
+			local dmg = DamageInfo() -- Create a server-side damage information class
+			dmg:SetDamage( self.HitDamage )
+			dmg:SetAttacker( self.Owner )
+			dmg:SetInflictor( self )
+			dmg:SetDamageType( DMG_GENERIC )
+			tr.Entity:TakeDamageInfo( dmg )
+		end
+	else
+		self:EmitSound( SwingSound )
+		vm:SendViewModelMatchingSequence( vm:LookupSequence( "misscenter1" ) )
+	end
+	
+	self:GetOwner():ViewPunch( Angle( -1, 0, 0 ) )
 end
