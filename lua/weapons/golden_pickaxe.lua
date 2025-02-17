@@ -2,9 +2,9 @@ if SERVER then
 	AddCSLuaFile()
 end
 
-SWEP.PrintName = "Simple Pickaxe"
+SWEP.PrintName = "Golden Pickaxe"
 
-SWEP.Purpose = "Mine some ores!"
+SWEP.Purpose = "Mine some ores but faster!"
 SWEP.Instructions = "Primary attack: Swing at glowing rocks."
 SWEP.Category = "Simple Mining"
 
@@ -30,7 +30,7 @@ function SWEP:Initialize()
 end
 
 SWEP.HitRate			= 1.35
-SWEP.HitDamage			= 10
+SWEP.HitDamage			= 25
 
 local SwingSound = Sound( "WeaponFrag.Roll" )
 local HitSoundWorld = Sound( "Canister.ImpactHard" )
