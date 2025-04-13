@@ -17,7 +17,7 @@ SWEP.UseHands = true
 
 SWEP.Primary.Clipsize = -1
 SWEP.Primary.DefaultClip = -1
-SWEP.Primary.Automatic = false
+SWEP.Primary.Automatic = true
 SWEP.Primary.Ammo = "none"
 
 SWEP.Slot               = 1

@@ -48,6 +48,12 @@ function SM.Rainbow()
     return Color(color.r, color.g, color.b, 255)
 end
 
+function SM.Notify(ply, args)
+    if SERVER then
+        DarkRP.notify(ply, 0, 4, "Mined $" .. tostring(args) )
+    end
+end
+
 concommand.Add( "sm_save", function( ply, cmd, args )
     if ply:IsSuperAdmin() then
         if not file.IsDir("sm_dat", "DATA") then
