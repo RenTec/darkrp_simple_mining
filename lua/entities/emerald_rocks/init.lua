@@ -1,4 +1,4 @@
--- GOLD ROCKS
+-- EMERALD ROCKS
 
 AddCSLuaFile("cl_init.lua")
 AddCSLuaFile("shared.lua")
@@ -32,7 +32,7 @@ function ENT:SpawnFunction( ply, tr, ClassName )
 	self:SetAngles( SpawnAng )
 	self:Spawn()
 	self:Activate()
-	self:SetColor( Color( 255, 190, 0 ) )
+	self:SetColor( Color( 50, 220, 90 ) )
 	self:SetRenderMode( RENDERMODE_GLOW ) -- I dont think this does anything
 	self:SetCollisionGroup( 20 )
 	self.shouldRespawn = true

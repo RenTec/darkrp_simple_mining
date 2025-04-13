@@ -7,15 +7,24 @@ include("entities/config/config.lua")
 
 function ENT:SpawnFunction( ply, tr, ClassName )
 	if ( !tr.Hit ) then return end
+	local SpawnPos = tr.HitPos
+	local dist = tr.HitPos - ( tr.HitNormal * 1.5 )
+	local Axis = Vector(0,0,0)
+	SpawnPos = dist
 
-	local SpawnPos = tr.HitPos + tr.HitNormal - Vector(0, 0, 5)
-	local SpawnAng = Angle(0,ply:EyeAngles().y,0)
-	SpawnAng:RotateAroundAxis(tr.HitNormal, 90)
-	SpawnAng:RotateAroundAxis(Vector(0, 0, 1), 90)
-	
-	if (tr.HitNormal.z <= 0 ) then
-		SpawnAng:RotateAroundAxis(Vector(0, 1, 0), 180)
+	if tr.HitNormal.z < 0 then
+		Axis = Vector(0, 1, 0):Cross(tr.HitNormal)
+		Axis:Normalize()
+	else
+		Axis = Vector(0, 0, 1):Cross(tr.HitNormal)
+		Axis:Normalize()
 	end
+
+	local dot = Vector(0,0,1):Dot(tr.HitNormal)
+	local dotang = math.acos(dot)
+
+	local SpawnAng = Angle(0, ply:EyeAngles().y, 0)
+	SpawnAng:RotateAroundAxis(Axis, math.deg(dotang))
 
 	local self = ents.Create( ClassName )
 	self:SetModel(table.Random(SM.rockModels))

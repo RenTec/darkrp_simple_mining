@@ -7,21 +7,41 @@ SM.Speed = 20
 
 SM.rockModels = 
 {
-	[100] = "models/props_abandoned/crystals_fixed/crystal_stump/crystal_small_stump_c.mdl",
-	[750] = "models/props_abandoned/crystals_fixed/crystal_stump/crystal_small_stump_a.mdl",
-	[250] = "models/props_abandoned/crystals_fixed/crystal_damaged/crystal_cluster_wall_damaged_small.mdl",
-    [150] = "models/props_abandoned/crystals_fixed/crystal_stump/crystal_small_stump_b.mdl",
-    [150] = "models/props_abandoned/crystals_fixed/crystal_stump/crystal_small_stump_a.mdl",
-    [150] = "models/props_abandoned/crystals_fixed/crystal_default/crystal_cluster_wall_small_b.mdl",
-    [150] = "models/props_abandoned/crystals_fixed/crystal_default/crystal_cluster_wall_small_a.mdl",
-    [150] = "models/props_abandoned/crystals_fixed/crystal_default/crystal_cluster_small_c.mdl",
-    [150] = "models/props_abandoned/crystals_fixed/crystal_default/crystal_cluster_small_b.mdl",
-    [150] = "models/props_abandoned/crystals_fixed/crystal_default/crystal_cluster_small_a.mdl",
-    [150] = "models/props_abandoned/crystals_fixed/crystal_damaged/crystal_cluster_wall_damaged_small.mdl",
-    [150] = "models/props_abandoned/crystals_fixed/crystal_damaged/crystal_cluster_small_damaged_b.mdl",
-    [150] = "models/props_abandoned/crystals_fixed/crystal_damaged/crystal_cluster_small_damaged_a.mdl"
+    "models/props_abandoned/crystals_fixed/crystal_stump/crystal_small_stump_c.mdl",
+    "models/props_abandoned/crystals_fixed/crystal_stump/crystal_small_stump_a.mdl",
+    "models/props_abandoned/crystals_fixed/crystal_damaged/crystal_cluster_wall_damaged_small.mdl",
+    "models/props_abandoned/crystals_fixed/crystal_stump/crystal_small_stump_b.mdl",
+    "models/props_abandoned/crystals_fixed/crystal_stump/crystal_small_stump_a.mdl",
+    "models/props_abandoned/crystals_fixed/crystal_default/crystal_cluster_wall_small_b.mdl",
+    "models/props_abandoned/crystals_fixed/crystal_default/crystal_cluster_wall_small_a.mdl",
+    "models/props_abandoned/crystals_fixed/crystal_default/crystal_cluster_small_c.mdl",
+    "models/props_abandoned/crystals_fixed/crystal_default/crystal_cluster_small_b.mdl",
+    "models/props_abandoned/crystals_fixed/crystal_default/crystal_cluster_small_a.mdl",
+    "models/props_abandoned/crystals_fixed/crystal_damaged/crystal_cluster_wall_damaged_small.mdl",
+    "models/props_abandoned/crystals_fixed/crystal_damaged/crystal_cluster_small_damaged_b.mdl",
+    "models/props_abandoned/crystals_fixed/crystal_damaged/crystal_cluster_small_damaged_a.mdl"
 }
 
+SM.largeRocks =
+{
+    "models/props_abandoned/crystals_fixed/crystal_damaged/crystal_cluster_huge_damaged_a.mdl",
+    "models/props_abandoned/crystals_fixed/crystal_damaged/crystal_cluster_huge_damaged_b.mdl",
+    "models/props_abandoned/crystals_fixed/crystal_default/crystal_cluster_huge_a.mdl",
+    "models/props_abandoned/crystals_fixed/crystal_default/crystal_cluster_huge_b.mdl",
+    "models/props_abandoned/crystals_fixed/crystal_default/crystal_cluster_huge_d.mdl",
+    "models/props_abandoned/crystals_fixed/crystal_stump/crystal_huge_stump_a.mdl",
+    "models/props_abandoned/crystals_fixed/crystal_stump/crystal_huge_stump_b.mdl",
+    "models/props_abandoned/crystals_fixed/crystal_stump/crystal_huge_stump_c.mdl"
+}
+
+SM.wallRocks =
+{
+    "models/props_abandoned/crystals_fixed/crystal_damaged/crystal_cluster_wall_damaged_huge.mdl",
+    "models/props_abandoned/crystals_fixed/crystal_default/crystal_cluster_wall_huge_a.mdl",
+    "models/props_abandoned/crystals_fixed/crystal_default/crystal_cluster_wall_huge_b.mdl",
+    "models/props_abandoned/crystals_fixed/crystal_stump/crystal_huge_stump_wall_a.mdl",
+    "models/props_abandoned/crystals_fixed/crystal_stump/crystal_huge_stump_wall_b.mdl" 
+}
 
 function SM.Rainbow()
     color = HSVToColor(CurTime() * SM.Speed % 360, 1, 1)

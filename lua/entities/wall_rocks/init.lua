@@ -1,4 +1,4 @@
--- GOLD ROCKS
+-- WALL ROCKS
 
 AddCSLuaFile("cl_init.lua")
 AddCSLuaFile("shared.lua")
@@ -27,12 +27,12 @@ function ENT:SpawnFunction( ply, tr, ClassName )
 	SpawnAng:RotateAroundAxis(Axis, math.deg(dotang))
 
 	local self = ents.Create( ClassName )
-	self:SetModel(table.Random(SM.rockModels))
+	self:SetModel(table.Random(SM.wallRocks))
 	self:SetPos( SpawnPos )
 	self:SetAngles( SpawnAng )
 	self:Spawn()
 	self:Activate()
-	self:SetColor( Color( 255, 190, 0 ) )
+	self:SetColor( Color( 200, 200, 200 ) )
 	self:SetRenderMode( RENDERMODE_GLOW ) -- I dont think this does anything
 	self:SetCollisionGroup( 20 )
 	self.shouldRespawn = true
