@@ -2,8 +2,8 @@ SM = SM or {}
 SM.oreData = {}
 
 SM.fileName = "simple_mining_data.json"
-SM.respawnTime = 120
 SM.Speed = 20
+
 
 SM.rockModels = 
 {
@@ -24,14 +24,14 @@ SM.rockModels =
 
 SM.largeRocks =
 {
-    "models/props_abandoned/crystals_fixed/crystal_damaged/crystal_cluster_huge_damaged_a.mdl",
-    "models/props_abandoned/crystals_fixed/crystal_damaged/crystal_cluster_huge_damaged_b.mdl",
-    "models/props_abandoned/crystals_fixed/crystal_default/crystal_cluster_huge_a.mdl",
-    "models/props_abandoned/crystals_fixed/crystal_default/crystal_cluster_huge_b.mdl",
-    "models/props_abandoned/crystals_fixed/crystal_default/crystal_cluster_huge_d.mdl",
-    "models/props_abandoned/crystals_fixed/crystal_stump/crystal_huge_stump_a.mdl",
-    "models/props_abandoned/crystals_fixed/crystal_stump/crystal_huge_stump_b.mdl",
-    "models/props_abandoned/crystals_fixed/crystal_stump/crystal_huge_stump_c.mdl"
+   "models/props_abandoned/crystals_fixed/crystal_damaged/crystal_cluster_huge_damaged_a.mdl",
+   "models/props_abandoned/crystals_fixed/crystal_damaged/crystal_cluster_huge_damaged_b.mdl",
+   "models/props_abandoned/crystals_fixed/crystal_default/crystal_cluster_huge_a.mdl",
+   "models/props_abandoned/crystals_fixed/crystal_default/crystal_cluster_huge_b.mdl",
+   "models/props_abandoned/crystals_fixed/crystal_default/crystal_cluster_huge_d.mdl",
+   "models/props_abandoned/crystals_fixed/crystal_stump/crystal_huge_stump_a.mdl",
+   "models/props_abandoned/crystals_fixed/crystal_stump/crystal_huge_stump_b.mdl",
+   "models/props_abandoned/crystals_fixed/crystal_stump/crystal_huge_stump_c.mdl"
 }
 
 SM.wallRocks =
@@ -48,9 +48,15 @@ function SM.Rainbow()
     return Color(color.r, color.g, color.b, 255)
 end
 
-function SM.Notify(ply, args)
-    if SERVER then
-        DarkRP.notify(ply, 0, 4, "Mined $" .. tostring(args) )
+if SERVER then
+    function SM.Notify(ply, amount)
+        DarkRP.notify(ply, 0, 4, "Mined $" .. tostring(amount) )
+    end
+
+    function SM.Payout(ply, base, args)
+        local payment = base + args
+        ply:addMoney(payment)
+        SM.Notify(ply, payment)
     end
 end
 

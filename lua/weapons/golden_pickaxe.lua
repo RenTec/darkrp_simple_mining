@@ -29,8 +29,8 @@ function SWEP:Initialize()
 	self:SetHoldType( "melee2" )
 end
 
-SWEP.HitRate			= 1.35
-SWEP.HitDamage			= 25
+SWEP.HitRate			= 1
+SWEP.HitDamage			= 50
 
 local SwingSound = Sound( "WeaponFrag.Roll" )
 local HitSoundCrystal = Sound( "Canister.ImpactHard" )

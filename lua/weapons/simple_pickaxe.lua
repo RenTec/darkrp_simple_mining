@@ -30,7 +30,7 @@ function SWEP:Initialize()
 end
 
 SWEP.HitRate			= 1.35
-SWEP.HitDamage			= 10
+SWEP.HitDamage			= 25
 
 local SwingSound = Sound( "WeaponFrag.Roll" )
 local HitSoundCrystal = Sound( "Canister.ImpactHard" )

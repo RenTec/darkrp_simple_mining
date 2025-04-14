@@ -5,6 +5,10 @@ AddCSLuaFile("shared.lua")
 include("shared.lua")
 include("entities/config/config.lua")
 
+local health = 300
+local basePay = 800
+local respawnTime = 180 -- 3 minutes
+
 function ENT:SpawnFunction( ply, tr, ClassName )
 	if ( !tr.Hit ) then return end
 	local SpawnPos = tr.HitPos
@@ -50,7 +54,7 @@ function ENT:Initialize()
 	self:GetPhysicsObject():SetMass(1000)
 	if self:GetPhysicsObject():IsValid() then self:GetPhysicsObject():Wake() end
 
-	self:SetHealth( 100 )
+	self:SetHealth( health )
 end
 
 function ENT:UpdateTransmitState()
@@ -69,10 +73,9 @@ function ENT:OnTakeDamage( dmginfo )
 		if dmginfo:GetDamage() >= self:Health() && self.shouldRespawn then
 			self.shouldRespawn = false
 			self:EmitSound( "physics/concrete/concrete_break2.wav" )
-			dmginfo:GetAttacker():addMoney(table.KeyFromValue(SM.rockModels, self:GetModel()))
-			SM.Notify(dmginfo:GetAttacker(), table.KeyFromValue(SM.rockModels, self:GetModel()))
+			SM.Payout(dmginfo:GetAttacker(), basePay, math.floor(self:GetModelRadius()))
 			self:AddEFlags( EFL_FORCE_CHECK_TRANSMIT )
-			timer.Simple( SM.respawnTime, function()
+			timer.Simple( respawnTime, function()
 				self:SetHealth( 100 )
 				self.shouldRespawn = true
 				self.m_bApplyingDamage = false
