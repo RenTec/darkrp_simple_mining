@@ -5,9 +5,9 @@ AddCSLuaFile("shared.lua")
 include("shared.lua")
 include("entities/config/config.lua")
 
-local health = 500
-local basePay = 2000
-local respawnTime = 300 -- 5 Minutes
+local health = SM.rainbowHealth
+local basePay = SM.rainbowValue
+local respawnTime = SM.rainbowRespawn
 
 function ENT:SpawnFunction( ply, tr, ClassName )
 	if ( !tr.Hit ) then return end
@@ -37,7 +37,7 @@ function ENT:SpawnFunction( ply, tr, ClassName )
 	self:Spawn()
 	self:Activate()
 	self:SetColor( SM.Rainbow() ) 
-	self:SetRenderMode( RENDERMODE_GLOW )
+	self:SetRenderMode( RENDERMODE_NORMAL )
 	self:SetCollisionGroup( 20 )
 	self.shouldRespawn = true
 	self:AddEFlags( EFL_FORCE_CHECK_TRANSMIT )
@@ -76,7 +76,7 @@ function ENT:OnTakeDamage( dmginfo )
 			SM.Payout(dmginfo:GetAttacker(), basePay, math.floor(self:GetModelRadius()))
 			self:AddEFlags( EFL_FORCE_CHECK_TRANSMIT )
 			timer.Simple( respawnTime, function()
-				self:SetHealth( 100 )
+				self:SetHealth( health )
 				self.shouldRespawn = true
 				self.m_bApplyingDamage = false
 				self:RemoveAllDecals()

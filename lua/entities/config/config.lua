@@ -1,10 +1,61 @@
+---------------------------------------
+----DO NOT TOUCH THESE VARIABLES!!!----
 SM = SM or {}
 SM.oreData = {}
 
 SM.fileName = "simple_mining_data.json"
+-----------| ---------- | --------------
+-----------v EDIT BELOW v --------------
+
+
+-- Rainbow RGB speed!
 SM.Speed = 20
 
+-- Rock type payout values
+SM.diamondValue = 1000
+SM.emeraldValue = 600
+SM.goldValue = 150
+SM.largeValue = 1500
+SM.rainbowValue = 2000
+SM.rubyValue = 800
+SM.sapphireValue = 400
+SM.wallValue = 1500
 
+-- Rock type respawn times in seconds
+SM.diamondRespawn = 240 -- 4 minutes
+SM.emeraldRespawn = 120 -- 2 minutes
+SM.goldRespawn = 60 -- 1 minute
+SM.largeRespawn = 360 -- 6 minutes
+SM.rainbowRespawn = 300 -- 5 Minutes
+SM.rubyRespawn = 180 -- 3 minutes
+SM.sapphireRespawn = 120 -- 2 minutes
+SM.wallRespawn = 360 -- 6 minutes
+
+-- Rock type health values
+SM.diamondHealth = 400
+SM.emeraldHealth = 200
+SM.goldHealth = 100
+SM.largeHealth = 800
+SM.rainbowHealth = 500
+SM.rubyHealth = 300
+SM.sapphireHealth = 200
+SM.wallHealth = 800
+
+-- Use model radius in addition to the rock type base value? ?
+SM.useRadius = true
+
+-- Multiplier if useRadius is false
+SM.rockMultiplier = 2
+
+--[[
+     !!! DO NOT TOUCH ANYTHING BELOW THIS OR THINGS WILL BREAK !!!
+
+     !!! DO NOT TOUCH ANYTHING BELOW THIS OR THINGS WILL BREAK !!!
+
+     !!! DO NOT TOUCH ANYTHING BELOW THIS OR THINGS WILL BREAK !!!
+--]]
+
+-- Small rock models
 SM.rockModels = 
 {
     "models/props_abandoned/crystals_fixed/crystal_stump/crystal_small_stump_c.mdl",
@@ -22,6 +73,7 @@ SM.rockModels =
     "models/props_abandoned/crystals_fixed/crystal_damaged/crystal_cluster_small_damaged_a.mdl"
 }
 
+-- Large rock models
 SM.largeRocks =
 {
    "models/props_abandoned/crystals_fixed/crystal_damaged/crystal_cluster_huge_damaged_a.mdl",
@@ -34,6 +86,7 @@ SM.largeRocks =
    "models/props_abandoned/crystals_fixed/crystal_stump/crystal_huge_stump_c.mdl"
 }
 
+-- Large wall rocks
 SM.wallRocks =
 {
     "models/props_abandoned/crystals_fixed/crystal_damaged/crystal_cluster_wall_damaged_huge.mdl",
@@ -109,7 +162,7 @@ local function SpawnRocks()
                     rock:SetColor( v.col )
                     rock:Spawn()
                     rock:Activate()
-                    rock:SetRenderMode( RENDERMODE_GLOW ) -- I dont think this does anything
+                    rock:SetRenderMode( RENDERMODE_NORMAL ) -- I dont think this does anything
                     rock:SetCollisionGroup( 20 )
                     rock.shouldRespawn = true
                     rock:AddEFlags( EFL_FORCE_CHECK_TRANSMIT )

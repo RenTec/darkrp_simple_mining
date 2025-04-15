@@ -5,9 +5,9 @@ AddCSLuaFile("shared.lua")
 include("shared.lua")
 include("entities/config/config.lua")
 
-local health = 400
-local basePay = 1000
-local respawnTime = 240 -- 4 minutes
+local health = SM.diamondHealth
+local basePay = SM.diamondValue
+local respawnTime = SM.diamondRespawn
 
 function ENT:SpawnFunction( ply, tr, ClassName )
 	if ( !tr.Hit ) then return end
@@ -37,7 +37,7 @@ function ENT:SpawnFunction( ply, tr, ClassName )
 	self:Spawn()
 	self:Activate()
 	self:SetColor( Color( 127, 255, 255 ) )
-	self:SetRenderMode( RENDERMODE_GLOW ) -- I dont think this does anything
+	self:SetRenderMode( RENDERMODE_NORMAL ) -- I dont think this does anything
 	self:SetCollisionGroup( 20 )
 	self.shouldRespawn = true
 	self:AddEFlags( EFL_FORCE_CHECK_TRANSMIT )
@@ -76,7 +76,7 @@ function ENT:OnTakeDamage( dmginfo )
 			SM.Payout(dmginfo:GetAttacker(), basePay, math.floor(self:GetModelRadius()))
 			self:AddEFlags( EFL_FORCE_CHECK_TRANSMIT )
 			timer.Simple( respawnTime, function()
-				self:SetHealth( 100 )
+				self:SetHealth( health )
 				self.shouldRespawn = true
 				self.m_bApplyingDamage = false
 				self:RemoveAllDecals()
