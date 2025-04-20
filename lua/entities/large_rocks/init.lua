@@ -37,7 +37,7 @@ function ENT:SpawnFunction( ply, tr, ClassName )
 	self:Spawn()
 	self:Activate()
 	self:SetColor( Color( 200, 200, 200 ) )
-	self:SetRenderMode( RENDERMODE_NORMAL ) -- I dont think this does anything
+	self:SetRenderMode( RENDERMODE_NORMAL )
 	self:SetCollisionGroup( 20 )
 	self.shouldRespawn = true
 	self:AddEFlags( EFL_FORCE_CHECK_TRANSMIT )
@@ -69,6 +69,10 @@ function ENT:OnTakeDamage( dmginfo )
 	if ( not self.m_bApplyingDamage ) then
 		self.m_bApplyingDamage = true
 		self:TakeDamageInfo( dmginfo )
+
+		if CMPF_DMZ then
+			CMPF_DMZ:FBTSpawnDamageNumbers(self, dmginfo:GetDamage(), self:GetPos(), Vector(0,0,0))
+		end
 
 		if dmginfo:GetDamage() >= self:Health() && self.shouldRespawn then
 			self.shouldRespawn = false

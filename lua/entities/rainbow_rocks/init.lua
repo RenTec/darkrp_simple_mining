@@ -69,7 +69,9 @@ function ENT:OnTakeDamage( dmginfo )
 	if ( not self.m_bApplyingDamage ) then
 		self.m_bApplyingDamage = true
 		self:TakeDamageInfo( dmginfo )
-
+		if CMPF_DMZ then
+			CMPF_DMZ:FBTSpawnDamageNumbers(self, dmginfo:GetDamage(), self:GetPos(), Vector(0,0,0))
+		end
 		if dmginfo:GetDamage() >= self:Health() && self.shouldRespawn then
 			self.shouldRespawn = false
 			self:EmitSound( "physics/concrete/concrete_break2.wav" )
