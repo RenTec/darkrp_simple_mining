@@ -69,8 +69,8 @@ function ENT:OnTakeDamage( dmginfo )
 	if ( not self.m_bApplyingDamage ) then
 		self.m_bApplyingDamage = true
 		self:TakeDamageInfo( dmginfo )
-		if CMPF_DMZ then
-			CMPF_DMZ:FBTSpawnDamageNumbers(self, dmginfo:GetDamage(), self:GetPos(), Vector(0,0,0))
+		if self.shouldRespawn and CMPF_DMZ then
+			CMPF_DMZ:FBTSpawnDamageNumbers(self, dmginfo:GetAttacker(), dmginfo:GetDamage(),self:GetPos(), dmginfo:GetDamagePosition())
 		end
 		if dmginfo:GetDamage() >= self:Health() && self.shouldRespawn then
 			self.shouldRespawn = false
