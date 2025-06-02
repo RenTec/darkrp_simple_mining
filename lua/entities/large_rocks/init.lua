@@ -39,7 +39,7 @@ function ENT:SpawnFunction( ply, tr, ClassName )
 	self:SetColor( Color( 200, 200, 200 ) )
 	self:SetRenderMode( RENDERMODE_NORMAL )
 	self:SetCollisionGroup( 20 )
-	self.shouldRespawn = true
+	self.spawned = true
 	self:AddEFlags( EFL_FORCE_CHECK_TRANSMIT )
 
 	return self
@@ -58,30 +58,29 @@ function ENT:Initialize()
 end
 
 function ENT:UpdateTransmitState()
-	if ( self.shouldRespawn ) then
-		return TRANSMIT_PVS
+	if not self.spawned then
+		return TRANSMIT_NEVER
 	end
-	
-	return TRANSMIT_NEVER
+
+	return TRANSMIT_PVS
 end
 
 function ENT:OnTakeDamage( dmginfo )
-	if ( not self.m_bApplyingDamage ) then
+	if not self.m_bApplyingDamage and self.spawned then
 		self.m_bApplyingDamage = true
 		self:TakeDamageInfo( dmginfo )
-
-		if self.shouldRespawn and CMPF_DMZ then
+		self.m_bApplyingDamage = false
+		if CMPF_DMZ then
 			CMPF_DMZ:FBTSpawnDamageNumbers(self, dmginfo:GetAttacker(), dmginfo:GetDamage(),self:GetPos(), dmginfo:GetDamagePosition())
 		end
-
-		if dmginfo:GetDamage() >= self:Health() && self.shouldRespawn then
-			self.shouldRespawn = false
+		if dmginfo:GetDamage() >= self:Health() then
+			self.spawned = false
 			self:EmitSound( "physics/concrete/concrete_break2.wav" )
 			SM.Payout(dmginfo:GetAttacker(), basePay, math.floor(self:GetModelRadius()))
 			self:AddEFlags( EFL_FORCE_CHECK_TRANSMIT )
 			timer.Simple( respawnTime, function()
 				self:SetHealth( health )
-				self.shouldRespawn = true
+				self.spawned = true
 				self.m_bApplyingDamage = false
 				self:RemoveAllDecals()
 				self:AddEFlags( EFL_FORCE_CHECK_TRANSMIT )
@@ -89,9 +88,5 @@ function ENT:OnTakeDamage( dmginfo )
 		else
 			if ( IsValid(dmginfo:GetAttacker()) ) then self:SetHealth( self:Health() - dmginfo:GetDamage() ) end
 		end
-		self.m_bApplyingDamage = false
 	end
-end
-
-function ENT:Think()
 end
